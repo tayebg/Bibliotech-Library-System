@@ -1,148 +1,118 @@
-# BIBLIOTECH
+# BIBLIOTECH — Library Management System
 
-A desktop library management system featuring automatic ISBN bibliographic metadata fetching, book cataloging, subscriber management, loan and return tracking, overdue alerts, and contactless NFC/RFID badge support.
+A desktop library management application built with Python and CustomTkinter. Manage book inventories with automatic ISBN metadata retrieval, track member registrations, and handle loan/return workflows with overdue detection.
 
 ## Features
 
-- **Book Catalog Management**: Add books by ISBN with automatic metadata retrieval (title, author, publisher, category) via `isbnlib`.
-- **Subscriber Directory**: Register and manage library members with unique identification numbers, contact information, and search capability.
-- **Loan & Return Tracking**: Issue book loans with automated return date calculations (30 days default) and process returns.
-- **Overdue Tracking**: Dedicated filter and visual indicators for identifying overdue loans.
-- **Hardware Integration**: Dual mode support—standard desktop mode and contactless NFC/RFID card reader mode (`pyscard` / ACR122U).
-- **Flexible Database Backend**: PostgreSQL as the primary database with automatic fallback to embedded SQLite3.
+- Book cataloging with automatic ISBN metadata fetching (title, author, publisher via isbnlib)
+- Member (subscriber) registration and management
+- Loan issuance with automatic 30-day return date calculation
+- Overdue loan detection and visual warnings
+- Multi-field search across all views
+- Multi-column sorting
+- Pagination (10 items per page)
+- Dual database engine: PostgreSQL (production) with automatic SQLite fallback
+- Data migration tool (SQLite → PostgreSQL)
+
+## Screenshots
+
+![Application Overview](assets/screenshots/application-overview.png)
+![Book Catalog](assets/screenshots/book-catalog.png)
+![Add Book Dialog](assets/screenshots/add-book-dialog.png)
+![Member Management](assets/screenshots/member-management.png)
+![Loan Management](assets/screenshots/loan-management.png)
 
 ## Tech Stack
 
-- **Language**: Python 3.9+
-- **GUI Framework**: CustomTkinter
-- **Databases**: PostgreSQL (primary) / SQLite3 (embedded fallback)
-- **Database Driver**: `psycopg2-binary`
-- **Metadata Fetching**: `isbnlib`
-- **Image Processing**: Pillow (PIL)
-- **Smartcard / NFC**: `pyscard`
-- **Testing**: `pytest`
+- Python 3.9+
+- CustomTkinter 5.1.2+
+- Pillow
+- isbnlib
+- psycopg2-binary
+- SQLite3 (standard library)
+- pytest
 
 ## Project Structure
 
-```
+```text
 BIBLIOTECH/
-├── img_readme/              # Interface screenshots and assets
+├── assets/
+│   └── screenshots/
 ├── sources/
 │   ├── Annexe/
-│   │   ├── font/            # Outfit typography files
-│   │   ├── icones/          # UI icons
-│   │   └── requirements.txt # Dependency list
-│   ├── nfc/                 # ACR122U NFC reader drivers and utilities
-│   ├── db.py                # Database abstraction layer (PostgreSQL & SQLite)
-│   ├── migrate.py           # Data migration utility (SQLite -> PostgreSQL)
-│   ├── BIBLIOTECH.py        # Standard desktop application
-│   ├── BIBLIOTECH_nfc.py    # Contactless NFC hardware application
-│   ├── bibliotheque.db      # SQLite database (standard mode)
-│   └── bibliotheque_nfc.db  # SQLite database (NFC mode)
+│   ├── BIBLIOTECH.py
+│   └── migrate.py
 ├── tests/
-│   ├── test_database.py     # Database schema, CRUD, search, and overdue tests
-│   └── test_logic.py        # Business logic and formatting tests
-├── .env.example             # Database configuration template
-├── .gitignore
-├── requirements.txt         # Root package requirements
+├── .env.example
+├── requirements.txt
 └── README.md
 ```
 
-## Requirements
+## Getting Started
 
-- Python 3.9 or higher
-- PostgreSQL (optional, recommended for production/multi-user) or SQLite (built-in fallback)
-- ACR122U NFC / RFID reader (optional, only required when running `BIBLIOTECH_nfc.py`)
+### Prerequisites
 
-## Installation
+- Python 3.9+
+- PostgreSQL (optional)
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/tayebg/BIBLIOTECH.git
-cd BIBLIOTECH
-```
+### Installation
 
-### 2. Create and activate a virtual environment
-```bash
-# Windows
-python -m venv .venv
-.venv\Scripts\activate
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd BIBLIOTECH
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Linux / macOS
-python3 -m venv .venv
-source .venv/bin/activate
-```
+### Configuration
 
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+1. Copy `.env.example` to `.env`.
+2. Configure database settings in `.env` (or leave defaults to use SQLite).
 
-## Environment Variables & PostgreSQL Setup
+### Run the Application
 
-Copy `.env.example` to `.env` in the project root:
-```bash
-cp .env.example .env
-```
-
-Configure your database connection in `.env`:
-```ini
-# Options: postgresql or sqlite
-DB_TYPE=postgresql
-
-# PostgreSQL Configuration
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=bibliotech
-DB_USER=postgres
-DB_PASSWORD=your_password_here
-
-# SQLite Fallback Configuration
-SQLITE_PATH=bibliotheque.db
-```
-
-### Creating the PostgreSQL Database
-If using PostgreSQL, create the database before running:
-```sql
-CREATE DATABASE bibliotech;
-```
-The application will automatically initialize all required tables on startup.
-
-### Migrating Existing Data from SQLite to PostgreSQL
-To migrate sample data from the existing SQLite database into PostgreSQL:
-```bash
-python sources/migrate.py
-```
-
-## How to Run
-
-### Standard Desktop Mode (No special hardware required)
 ```bash
 python sources/BIBLIOTECH.py
 ```
 
-### Contactless NFC Hardware Mode (Requires ACR122U Reader)
-```bash
-python sources/BIBLIOTECH_nfc.py
-```
+### Run Tests
 
-## Running Tests
-
-Run the automated test suite using `pytest`:
 ```bash
 pytest -v
 ```
 
-## Basic Usage
+### Database Migration (SQLite to PostgreSQL)
 
-1. **Adding Books**: Open the **LIVRE** tab, enter the book's ISBN and category, then click **AJOUTER**. A modal confirmation dialog will appear with pre-filled metadata fetched from online bibliographic registries.
-2. **Adding Members**: Open the **ADHERENT** tab, enter the member's details (name, email, phone), and click **AJOUTER**.
-3. **Borrowing Books**: In the **EMPRUNT** tab, enter the book ISBN / ID and member ID, then click **AJOUTER**.
-4. **Returning Books**: In the **EMPRUNT** tab, enter the book and member details, then click **RETOUR**.
-5. **Checking Overdue Books**: In the **EMPRUNT** tab, click **Livres en retard** to view books past their 30-day return window.
+```bash
+python sources/migrate.py
+```
+
+## Usage
+
+- **Add a Book**: Navigate to the books tab, enter an ISBN, and the system will automatically fetch the metadata. Save it to your catalog.
+- **Register a Member**: Open the members tab and fill in the registration details to add a new subscriber.
+- **Issue a Loan**: In the loans section, assign a book to a member. The system calculates a 30-day return date automatically.
+- **Check Overdue Loans**: Any overdue loans will trigger visual warnings in the dashboard or loan list.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have any ideas, suggestions, or bug reports.
+
+## License
+
+MIT License
 
 ## Author
 
-- **Tayeb Bekkouche** ([@tayebg](https://github.com/tayebg))
-- Contact: tayebekk2004@gmail.com
-- Repository: [https://github.com/tayebg/BIBLIOTECH](https://github.com/tayebg/BIBLIOTECH)
+Tayeb Bekkouche — https://github.com/tayebg

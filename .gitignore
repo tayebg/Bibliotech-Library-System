@@ -34,3 +34,7 @@ ehthumbs.db
 Desktop.ini
 .BIN/
 .DS_Store
+
+# Database files
+*.db
+*.sqlite3
