@@ -14,14 +14,6 @@ A desktop library management application built with Python and CustomTkinter. Ma
 - Dual database engine: PostgreSQL (production) with automatic SQLite fallback
 - Data migration tool (SQLite → PostgreSQL)
 
-## Screenshots
-
-![Application Overview](assets/screenshots/application-overview.png)
-![Book Catalog](assets/screenshots/book-catalog.png)
-![Add Book Dialog](assets/screenshots/add-book-dialog.png)
-![Member Management](assets/screenshots/member-management.png)
-![Loan Management](assets/screenshots/loan-management.png)
-
 ## Tech Stack
 
 - Python 3.9+
@@ -41,6 +33,7 @@ BIBLIOTECH/
 ├── sources/
 │   ├── Annexe/
 │   ├── BIBLIOTECH.py
+│   ├── db.py
 │   └── migrate.py
 ├── tests/
 ├── .env.example
@@ -59,7 +52,7 @@ BIBLIOTECH/
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/tayebg/BIBLIOTECH.git
    cd BIBLIOTECH
    ```
 2. Create and activate a virtual environment:
@@ -105,14 +98,22 @@ python sources/migrate.py
 - **Issue a Loan**: In the loans section, assign a book to a member. The system calculates a 30-day return date automatically.
 - **Check Overdue Loans**: Any overdue loans will trigger visual warnings in the dashboard or loan list.
 
+## Screenshots
+
+![Application Overview](assets/screenshots/application-overview.png)
+![Book Catalog](assets/screenshots/book-catalog.png)
+![Add Book Dialog](assets/screenshots/add-book-dialog.png)
+![Member Management](assets/screenshots/member-management.png)
+![Loan Management](assets/screenshots/loan-management.png)
+
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request if you have any ideas, suggestions, or bug reports.
+Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 
-MIT License
+This project is licensed under the [MIT License](LICENSE).
 
 ## Author
 
-Tayeb Bekkouche — https://github.com/tayebg
+[Tayeb Bekkouche](https://github.com/tayebg)
