@@ -100,9 +100,6 @@ python sources/migrate.py
 
 ## Screenshots
 
-![Application Overview](assets/screenshots/application-overview.png)
-![Book Catalog](assets/screenshots/book-catalog.png)
-![Add Book Dialog](assets/screenshots/add-book-dialog.png)
 ![Member Management](assets/screenshots/member-management.png)
 ![Loan Management](assets/screenshots/loan-management.png)
 
