@@ -1,4 +1,4 @@
-# BIBLIOTECH — Library Management System
+# Bibliotech Library System — Library Management Application
 
 A desktop library management application built with Python and CustomTkinter. Manage book inventories with automatic ISBN metadata retrieval, track member registrations, and handle loan/return workflows with overdue detection.
 
